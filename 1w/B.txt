@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+	int T;
+	cin >> T;
+	
+	
+	for (int i = 0; i < T; i++) {
+		int arr[1000] = { 0 };
+		int a=0;
+		int sum = 0; //value 값 변경 필요할수도.
+		cin >> a;
+		for (int j = 0; j < a; j++) {
+			int b;
+			cin >> b;
+			arr[j]=b;
+			sum += b;
+		}
+		sum = sum / a;
+
+		int count = 0;
+		for (int k = 0; k < a; k++) {
+			if (sum<arr[k])
+				count+=1;
+		}
+		
+		double answer = 0;
+		answer = 100* (double)count / a ;
+		cout << fixed;
+		cout.precision(3);
+		cout<<answer<<"%"<<'\n';
+	}
+	return 0;
+}

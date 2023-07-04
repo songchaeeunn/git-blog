@@ -1,0 +1,38 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+stack <int> st;
+
+int main(){
+    
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    long long answer = 0; //수가 많아서 인트가 아닌 롱롱쓴다
+    
+    int n;
+    cin >> n; //건물의 갯수
+
+    for (int i = 0; i < n; i++) {
+        int h;
+        cin >> h; //높이
+
+        //첫번째 건물은 비교할 대상이 없어서 스택이 비어있으면 건물을 넣어준다.
+        if (st.empty()) {
+            st.push(h); 
+        }
+
+        //두번째 이상 건물일 때
+        else {
+            while (!st.empty() && st.top() <= h)
+                st.pop();
+
+            answer += st.size();
+
+            st.push(h);
+        }
+    }
+
+    cout << answer;
+}

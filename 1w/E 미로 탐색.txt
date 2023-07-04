@@ -1,0 +1,61 @@
+#include <iostream>
+#include <queue>
+#define MAX 101
+
+using namespace std;
+
+int n, m;
+int map[MAX][MAX];//맵
+int visited[MAX][MAX];//방문기록
+int dist[MAX][MAX]; //횟수저장
+
+int a_x[4] = { -1,1,0,0 };
+int a_y[4] = { 0,0,-1,1 };
+
+queue<pair<int, int> > q;
+
+void bfs(int a, int b) {
+    visited[a][b] = 1;
+    q.push({ a, b });
+    dist[a][b]++;
+
+    while (!q.empty()) {
+
+        int x = q.front().first;
+        int y = q.front().second;
+
+        q.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int xx = x + a_x[i];
+            int yy = y + a_y[i];
+
+            if (xx < 0 || yy < 0 || xx >= n || yy >= m) {
+                continue;
+            }
+
+            if (visited[xx][yy] == 0 && map[xx][yy] == 1) {
+                visited[xx][yy] ++;
+                q.push({ xx,yy });
+                dist[xx][yy]=dist[x][y] + 1;
+            }
+        }
+    }
+}
+
+int main() {
+    cin >> n >> m;
+
+    for (int i = 0; i < n; i++) {
+        string now;
+
+        cin >> now;
+
+        for (int j = 0; j < m; j++) {
+            map[i][j] = now[j] - '0';
+        }
+    }
+
+    bfs(0, 0);
+    cout << dist[n - 1][m - 1];
+}
